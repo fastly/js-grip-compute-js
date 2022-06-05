@@ -2,19 +2,19 @@
 
 A GRIP interface library for JavaScript on Compute@Edge.
 
+This is an adapter for using [`@fanoutio/grip`](https://github.com/fanout/js-grip) on
+Compute@Edge with JavaScript.
+
 ## Usage
 
-The following example posts to a Pushpin publisher at `http://localhost:5561/publish/`.
-Make sure you have set up a Backend on your service that can be accessed through that host name.
+The following example posts to a Fastly Fanout publisher represented by a `GRIP_URL`.
+Make sure you have set up a backend on your service named `grip-publisher` that can access the host name `fanout.fastly.com`.
 
 ```javascript
 import { Publisher } from "@fastly/grip-compute-js";
 import { GripInstruct } from "@fanoutio/grip";
 
-const publisher = new Publisher({
-  control_uri: 'http://localhost:5561/',
-  backend: 'grip-publisher',
-});
+const publisher = new Publisher(`https://fanout.fastly.com/<service-id>?iss=<service-id>&key=<api_token>&backend=grip-publisher`);
 
 addEventListener("fetch", (event) => event.respondWith(handleRequest(event)));
 async function handleRequest(event) {
@@ -52,16 +52,13 @@ async function handleRequest(event) {
 
 ## WS-over-HTTP
 
-The following examples uses WS-over-HTTP. Make sure Pushpin uses the `over_http` settting.
+The following examples uses WS-over-HTTP.
 
 ```javascript
 import { Publisher } from "@fastly/grip-compute-js";
 import { GripInstruct, WebSocketMessageFormat } from "@fanoutio/grip";
 
-const publisher = new Publisher({
-  control_uri: 'http://localhost:5561/',
-  backend: 'grip-publisher',
-});
+const publisher = new Publisher(`https://fanout.fastly.com/<service-id>?iss=<service-id>&key=<api_token>&backend=grip-publisher`);
 
 addEventListener("fetch", (event) => event.respondWith(handleRequest(event)));
 async function handleRequest(event) {
@@ -110,3 +107,23 @@ async function handleRequest(event) {
   return new Response('Not found.\n', {status: 404, headers: {'Content-Type': 'text/plain'}});
 }
 ```
+
+## Running Locally
+
+For local development, you can run this locally using `fastly compute serve`.
+
+In order to do this, you will need to run the open-source [Pushpin](https://pushpin.org) server to take
+the place of Fastly and the Publisher.
+
+Use a constructor call such as the following:
+
+```javascript
+const serveGrip = new Publisher({
+  control_uri: 'http://localhost:5561/',
+  backend: 'grip-publisher',
+});
+```
+
+And make sure that your `fastly.toml` file defines a backend named `grip-publisher` for `http://localhost:5561/`.
+
+Additionally, if you need the WebSocket-over-HTTP functionality, make sure Pushpin uses the `over_http` setting.
