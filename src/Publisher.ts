@@ -1,3 +1,8 @@
+/*
+ * Copyright Fastly, Inc.
+ * Licensed under the MIT license. See LICENSE file for details.
+ */
+
 import { PublisherBase, PublisherClient } from "@fanoutio/grip";
 import { IGripConfig } from "./IGripConfig";
 import { PublisherTransport } from "./PublisherTransport";

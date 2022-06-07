@@ -1,3 +1,8 @@
+/*
+ * Copyright Fastly, Inc.
+ * Licensed under the MIT license. See LICENSE file for details.
+ */
+
 import { FetchResponse, IPublisherTransport, IReqHeaders } from "@fanoutio/grip";
 
 export class PublisherTransport implements IPublisherTransport {
