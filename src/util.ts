@@ -1,15 +1,19 @@
-import { IGripConfigBase, parseGripUriCustomParams } from "@fanoutio/grip";
+import { parseGripUriCustomParams } from "@fanoutio/grip";
 import { IGripConfig } from "./IGripConfig";
 
+type CustomParamsContext = {
+  backend: string;
+};
+
 export function parseGripUri(uri: string) {
-  return parseGripUriCustomParams<IGripConfig, {backend: string}>(
+  return parseGripUriCustomParams<IGripConfig, CustomParamsContext>(
     uri,
-    (params: Record<string, string>) => {
+    (params) => {
       const backend = params['backend'] ?? '';
       delete params['backend'];
       return { backend };
     },
-    (configBase: IGripConfigBase, ctx: {backend: string}) => {
+    (configBase, ctx) => {
       return {
         ...configBase,
         'backend': ctx.backend,
