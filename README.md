@@ -1,9 +1,9 @@
 # js-grip-compute-js
 
-A GRIP interface library for JavaScript on Compute@Edge.
+A GRIP interface library for JavaScript on Fastly Compute.
 
 This is an adapter for using [`@fanoutio/grip`](https://github.com/fanout/js-grip) on
-Compute@Edge with JavaScript.
+Fastly Compute with JavaScript.
 
 ## Usage
 
