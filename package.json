@@ -1,6 +1,6 @@
 {
   "name": "@fastly/grip-compute-js",
-  "version": "0.2.0-alpha.0",
+  "version": "0.2.0",
   "author": "Fastly, Inc. <oss@fastly.com>",
   "description": "Extension of js-grip for Fastly Compute",
   "contributors": [
