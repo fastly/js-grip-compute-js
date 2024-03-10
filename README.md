@@ -1,9 +1,6 @@
-# @fastly/js-grip-compute-js
+# @fastly/grip-compute-js
 
-## IMPORTANT: This package is no longer needed
-
-**IMPORTANT**: With the release of [@fanoutio/grip version 4](https://www.npmjs.com/package/@fanoutio/grip),
-this package is no longer needed.
+## IMPORTANT: This package is no longer needed. Please read below.
 
 Publishing messages through `@fanoutio/grip` uses the [global `fetch()`](https://developer.mozilla.org/en-US/docs/Web/API/fetch)
 function as the underlying mechanism. When using `fetch()` in Fastly Compute, it requires the specification of the `backend` parameter.
@@ -11,8 +8,8 @@ function as the underlying mechanism. When using `fetch()` in Fastly Compute, it
 The main purpose of this library was to define that `backend` value as a query parameter added to the `GRIP_URL` and
 to provide specialized versions of `parseGripUri` and `Publisher` that can work with this parameter.
 
-In `@fanoutio/grip` version 4, the `Publisher` class constructor accepts an optional second parameter that is used to
-customize its behavior when performing this `fetch()`.
+In [@fanoutio/grip version 4](https://www.npmjs.com/package/@fanoutio/grip), the `Publisher` class constructor accepts
+an optional second parameter that is used to customize its behavior when performing this `fetch()`.
 
 The example below assigns the backend called `'publisher'` before calling the global fetch.
 ```javascript
@@ -27,7 +24,10 @@ const publisher = new Publisher(gripConfig, {
 If you wish to configure the value by adding it to `GRIP_URL`, the following setup can be used:
 ```javascript
 import { Publisher } from '@fanoutio/grip';
-const publisher = new Publisher(gripConfig, {
+
+const GRIP_URL = 'https://pushpin.myproject.com/?iss=app&key=secret&backend=publisher'; 
+
+const publisher = new Publisher(GRIP_URL, {
     fetch(input, init) {
         const url = new URL(input);
         const backend = url.searchParams.get('backend');
