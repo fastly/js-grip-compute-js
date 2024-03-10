@@ -1,6 +1,7 @@
 {
   "name": "@fastly/grip-compute-js",
   "version": "0.2.0",
+  "type": "module",
   "author": "Fastly, Inc. <oss@fastly.com>",
   "description": "Extension of js-grip for Fastly Compute",
   "contributors": [
@@ -9,20 +10,17 @@
       "email": "komuro@fastly.com"
     }
   ],
-  "main": "./build/src/index.js",
-  "module": "./build/esm/index.js",
+  "main": "./build/index.js",
   "files": [
     "build/**/*"
   ],
-  "types": "./build/src/index.d.ts",
+  "types": "./build/index.d.ts",
   "scripts": {
     "prepack": "npm run build",
-    "build": "npm run lint && npm run build-package",
+    "build": "npm run build-package",
     "build-package": "npm run build-package:clean && npm run build-package:compile",
     "build-package:clean": "rimraf build",
-    "build-package:compile": "tsc --build tsconfig.json && tsc --build tsconfig.esm.json",
-    "lint": "npm run lint:eslint",
-    "lint:eslint": "eslint src"
+    "build-package:compile": "tsc --build tsconfig.build.json"
   },
   "repository": {
     "type": "git",
@@ -40,15 +38,12 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@fastly/js-compute": "^0.2.4",
+    "@fastly/js-compute": "^3.0.0",
     "@types/debug": "^4.1.5",
-    "@typescript-eslint/eslint-plugin": "^5.26.0",
-    "@typescript-eslint/parser": "^5.26.0",
-    "eslint": "^8.16.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.7.2"
+    "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@fanoutio/grip": "^3.1.0"
+    "@fanoutio/grip": "^4.0.0"
   }
 }
